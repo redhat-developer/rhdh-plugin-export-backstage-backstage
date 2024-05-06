@@ -1,0 +1,9 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-cicd-statistics:
+      mountPoints:
+        - mountPoint: entity.page.overview/cards
+          importName: EntityCicdStatisticsContent
+          config:
+            layout:
+              gridColumn: "1 / -1"

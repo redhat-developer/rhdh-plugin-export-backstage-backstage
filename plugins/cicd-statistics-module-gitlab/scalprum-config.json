@@ -1,0 +1,6 @@
+{
+  "name": "backstage.plugin-cicd-statistics-module-gitlab",
+  "exposedModules": {
+    "PluginRoot": "./src/api.ts"
+  }
+}
