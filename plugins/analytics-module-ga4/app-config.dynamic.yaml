@@ -1,0 +1,5 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-analytics-module-ga4:
+      apiFactories:
+        - importName: ga4AnalyticsApi
