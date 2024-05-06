@@ -1,0 +1,5 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-cicd-statistics-module-gitlab:
+      apiFactories:
+        - importName: gitlabCicdStatisticsApi
