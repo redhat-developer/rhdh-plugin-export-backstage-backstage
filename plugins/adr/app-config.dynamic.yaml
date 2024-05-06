@@ -1,0 +1,9 @@
+dynamicPlugins:
+  frontend:
+    adr-wrapper:
+      mountPoints:
+        - mountPoint: entity.page.overview/cards
+          importName: EntityAdrContent
+          config:
+            layout:
+              gridColumn: "1 / -1"
