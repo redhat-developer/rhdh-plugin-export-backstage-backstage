@@ -1,0 +1,102 @@
+name: Export Dynamic Plugin Packages
+on:
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: node-version to execute the export
+        required: false
+        default: '18.x'
+      backstage-release:
+        description: backstage version to export the dynamic plugins from 
+        required: false
+        default: 'v1.23.4' # corresponds to RHDH 1.1
+  push:
+    tags: ["v*.*.*"]
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+    
+    permissions:
+      contents: write
+    
+    name: Export
+    steps:
+      - name: Set environment variables
+        id: set-env-vars
+        shell: bash
+        run: |
+          if [[ "${{ github.event.inputs.backstage-release }}" != "" ]]
+          then
+            echo "BACKSTAGE_RELEASE=${{ github.event.inputs.backstage-release }}" >> $GITHUB_OUTPUT
+            echo "NODE_VERSION=${{ github.event.inputs.node-version }}" >> $GITHUB_OUTPUT
+          else
+            echo "BACKSTAGE_RELEASE=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo "NODE_VERSION=18.x" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: backstage/backstage
+          ref: ${{ steps.set-env-vars.outputs.BACKSTAGE_RELEASE }}
+
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          path: this-repo
+
+      - name: use node.js ${{ steps.set-env-vars.outputs.NODE_VERSION }}
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: ${{ steps.set-env-vars.outputs.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org/ # Needed for auth
+
+      - name: yarn install
+        uses: backstage/actions/yarn-install@a674369920067381b450d398b27df7039b7ef635 # v0.6.5
+        with:
+          cache-prefix: ${{ runner.os }}-v${{ steps.set-env-vars.outputs.NODE_VERSION }}
+
+      - name: type checking and declarations
+        run: yarn tsc
+
+      - name: Create archive destination folder
+        run:
+          mkdir -p ${{ github.workspace }}/dynamic-plugins-archives
+          
+      - name: export dynamic plugin packages
+        id: export-dynamic 
+        uses: ./this-repo/.github/actions/export-dynamic
+        with:
+            plugins-file: ${{ github.workspace }}/this-repo/plugins-list.yaml
+            destination: ${{ github.workspace }}/dynamic-plugins-archives
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ github.event.inputs.backstage-release != '' }}
+        with:
+            name: dynamic plugin packages 
+            path: ${{ github.workspace }}/dynamic-plugins-archives/
+            if-no-files-found: error
+            retention-days: 1
+            overwrite: true
+
+      - name: Check error code
+        if: ${{ steps.export-dynamic.outputs.errors != '' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('The export failed for the following plugins: ' + '${{ steps.export-dynamic.outputs.ERRORS }}')
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: ${{ github.event.inputs.backstage-release == '' }}
+        with:
+            body:
+              Dynamic Plugins (for Red Hat Developer Hub) built from the ${{ steps.set-env-vars.outputs.BACKSTAGE_RELEASE }} release of Backstage.
+            files: ${{ github.workspace }}/dynamic-plugins-archives/*
+            repository: ${{ github.repository }}
