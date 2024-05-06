@@ -1,0 +1,88 @@
+name: Export Dynamic Plugin Packages
+on:
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: node-version to execute the export
+        required: false
+        type: choice
+        default: ' '
+        options:
+          - ' '
+          - '18.x'
+          - '20.x'
+      backstage-release:
+        description: backstage version to export the dynamic plugins from 
+        required: false
+        default: ''
+  push:
+    tags: ["v*.*.*"]
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    name: Prepare
+    outputs:
+      backstage-release: ${{ steps.set-env-vars.outputs.BACKSTAGE_RELEASE }}
+      node-version: ${{ steps.set-env-vars.outputs.NODE_VERSION }}
+
+    steps:
+      - name: Checkout overlay repository ${{ github.repository }}
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref_name }}
+
+      - name: Set environment variables
+        id: set-env-vars
+        shell: bash
+        run: |
+          if [[ "${{ github.event.inputs.node-version }}" != "" ]] && [[ "${{ github.event.inputs.node-version }}" != " "  ]]
+          then
+            echo "NODE_VERSION=${{ github.event.inputs.node-version }}" >> $GITHUB_OUTPUT
+          elif [ -f "./node-version" ]
+          then
+            echo "NODE_VERSION=$(cat node-version)" >> $GITHUB_OUTPUT
+          fi
+
+          if [[ "${{ github.event.inputs.backstage-release }}" != "" ]]
+          then
+            echo "BACKSTAGE_RELEASE=${{ github.event.inputs.backstage-release }}" >> $GITHUB_OUTPUT
+          elif [ -f "./plugins-repo-ref" ]
+          then
+            echo "BACKSTAGE_RELEASE=$(cat plugins-repo-ref)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check that backstage-release is set
+        if: ${{ steps.set-env-vars.outputs.BACKSTAGE_RELEASE == '' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('The export failed: no git ref specified for the plugins repository. You should specify the backstage git ref (commit, branch, release tag) in the `plugins-repo-ref` file or in the workflow arguments.')
+
+      - name: Check that node-version is set
+        if: ${{ steps.set-env-vars.outputs.NODE_VERSION == '' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('The export failed: no node version specified. You should specify the node-version (18.x or 20.x) in the `node-version` file or in the workflow arguments.')
+    
+  export:
+    needs: prepare
+    uses: redhat-developer/rhdh-plugin-export-utils/.github/workflows/export-dynamic.yaml@main
+
+    with:
+      plugins-repo: backstage/backstage
+      plugins-repo-ref: ${{ needs.prepare.outputs.backstage-release }}
+      overlay-repo: ${{ github.repository }}
+      overlay-repo-ref: ${{ github.ref_name }}
+      node-version: ${{ needs.prepare.outputs.node-version }}
+      publish-release-assets: ${{ github.event.inputs.backstage-release == '' }}
+
+    permissions:
+      contents: write
