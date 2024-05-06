@@ -1,0 +1,5 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-analytics-module-ga:
+      apiFactories:
+        - importName: gaAnalyticsApi

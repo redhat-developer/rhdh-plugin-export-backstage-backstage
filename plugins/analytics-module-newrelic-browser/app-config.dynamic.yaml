@@ -1,0 +1,5 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-analytics-module-newrelic-browser:
+      apiFactories:
+        - importName: newRelicBrowserAnalyticsApi
