@@ -8,12 +8,3 @@ dynamicPlugins:
             text: DevTools
             icon: chat
           path: /devtools
-      # For showing in the overview tab
-      mountPoints:
-        - mountPoint: entity.page.overview/cards
-          importName: DevToolsPage
-          config:
-            layout:
-              gridColumnEnd:
-                md: span 8
-                xs: span 12
