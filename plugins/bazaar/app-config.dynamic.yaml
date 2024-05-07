@@ -1,0 +1,21 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-bazaar:
+      # For the sidebar link
+      dynamicRoutes:
+        - importName: BazaarPage
+          menuItem:
+            text: Bazaar
+            icon: dashboard
+          path: /bazaar
+      # For showing in the overview tab
+      mountPoints:
+        - mountPoint: entity.page.overview/cards
+          importName: EntityBazaarInfoCard
+          # One can also use the following Bazaar component
+          # importName: BazaarOverviewCard
+          config:
+            layout:
+              gridColumnEnd:
+                md: span 8
+                xs: span 12

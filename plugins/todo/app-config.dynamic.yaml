@@ -1,0 +1,12 @@
+dynamicPlugins:
+  frontend:
+    backstage.plugin-todo:
+      # For showing in the overview tab
+      mountPoints:
+        - mountPoint: entity.page.overview/cards
+          # Component for Feedback Like Dislike buttons
+          importName: EntityTodoContent
+          config:
+            layout:
+              gridColumn: "1 / -1"
+              width: 50vw
