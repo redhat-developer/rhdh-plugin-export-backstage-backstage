@@ -1,6 +1,6 @@
 dynamicPlugins:
   frontend:
-    adr-wrapper:
+    backstage.plugin-adr:
       mountPoints:
         - mountPoint: entity.page.overview/cards
           importName: EntityAdrContent
