@@ -71,7 +71,7 @@ jobs:
           
       - name: export dynamic plugin packages
         id: export-dynamic 
-        uses: ./this-repo/.github/actions/export-dynamic
+        uses: redhat-developer/rhdh-plugin-export-utils/export-dynamic@main
         with:
             plugins-file: ${{ github.workspace }}/this-repo/plugins-list.yaml
             destination: ${{ github.workspace }}/dynamic-plugins-archives
