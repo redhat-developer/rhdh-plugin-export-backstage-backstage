@@ -1,8 +1,19 @@
 dynamicPlugins:
   frontend:
     backstage.plugin-entity-feedback:
-      # For showing in the overview tab
+      # For showing in the overview tab. Use either of the two mountPoints
       mountPoints:
+        - mountPoint: entity.page.overview/cards
+          module: CustomRoot                  # This is the key for "exposedModules" element in "scalprum-config.json"
+          importName: CustomLikeDislikeCard   # Custom component where "InfoCard" wraps "LikeDislikeButtons" 
+          config:
+            layout:
+              boxShadow: 10
+              gridColumn: "1 / -1"
+              gridRow: '2 / 3'
+              width: 20vw
+            props:
+              text: "Entity Feedback CustomLikeDislikeCard content would be here"
         - mountPoint: entity.page.overview/cards
           # Component for Feedback Like Dislike buttons
           importName: EntityLikeDislikeRatingsCard
@@ -10,5 +21,6 @@ dynamicPlugins:
           # importName: EntityFeedbackResponseContent
           config:
             layout:
-              gridColumn: "1 / -1"
-              width: 50vw
+              boxShadow: 5
+              gridRow: '2 / 3'
+              gridColumn: "8 / -1"
