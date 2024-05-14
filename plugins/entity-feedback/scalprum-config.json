@@ -1,0 +1,7 @@
+{
+  "name": "backstage.plugin-entity-feedback",
+  "exposedModules": {
+    "PluginRoot": "./src/index.ts",
+    "CustomRoot": "./src/custom.ts"
+  }
+}
