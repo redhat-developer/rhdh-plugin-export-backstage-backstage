@@ -2,3 +2,5 @@ plugins/notifications:
 plugins/notifications-backend: --embed-package @backstage/plugin-signals-node
 plugins/signals:
 plugins/signals-backend:
+plugins/badges:
+plugins/badges-backend:
