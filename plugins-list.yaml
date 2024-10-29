@@ -16,7 +16,7 @@ plugins/auth-backend-module-guest-provider:
 plugins/auth-backend-module-microsoft-provider:
 plugins/auth-backend-module-oauth2-provider:
 plugins/auth-backend-module-oauth2-proxy-provider:
-# plugins/auth-backend-module-oidc-provider: # Added as static plugin in RHDH
+# plugins/auth-backend-module-oidc-provider ==>  Added as static plugin in RHDH
 plugins/auth-backend-module-okta-provider:
 plugins/auth-backend-module-onelogin-provider:
 plugins/auth-backend-module-pinniped-provider:
@@ -43,7 +43,7 @@ plugins/catalog-backend-module-openapi:
 plugins/catalog-backend-module-puppetdb:
 plugins/catalog-backend-module-scaffolder-entity-model:
 plugins/catalog-backend-module-unprocessed:
-# plugins/catalog-graph ==> Added as a static plugin in RHDH :
+# plugins/catalog-graph ==> Added as a static plugin in RHDH
 # plugins/catalog-import ==> Added as a static plugin in RHDH
 plugins/catalog-unprocessed-entities:
 plugins/config-schema:
