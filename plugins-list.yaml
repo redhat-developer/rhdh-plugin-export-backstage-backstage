@@ -2,9 +2,9 @@ plugins/api-docs:
 plugins/api-docs-module-protoc-gen-doc:
 plugins/app-backend:
 plugins/app-visualizer:
-#plugins/auth-backend: ==> Added as a static plugin in RHDH
+# plugins/auth-backend  ==> Added as a static plugin in RHDH
 plugins/auth-backend-module-atlassian-provider:
-#plugins/auth-backend-module-aws-alb-provider: ==> the new backend system is not exported as default export
+plugins/auth-backend-module-aws-alb-provider:
 plugins/auth-backend-module-azure-easyauth-provider:
 plugins/auth-backend-module-bitbucket-provider:
 plugins/auth-backend-module-cloudflare-access-provider:
@@ -16,31 +16,35 @@ plugins/auth-backend-module-guest-provider:
 plugins/auth-backend-module-microsoft-provider:
 plugins/auth-backend-module-oauth2-provider:
 plugins/auth-backend-module-oauth2-proxy-provider:
-plugins/auth-backend-module-oidc-provider:
+# plugins/auth-backend-module-oidc-provider ==>  Added as static plugin in RHDH
 plugins/auth-backend-module-okta-provider:
+plugins/auth-backend-module-onelogin-provider:
 plugins/auth-backend-module-pinniped-provider:
 plugins/auth-backend-module-vmware-cloud-provider:
-#plugins/catalog: ==> Added as a static plugin in RHDH
-#plugins/catalog-backend: ==> Added as a static plugin in RHDH
+# plugins/catalog  ==> Added as a static plugin in RHDH
+# plugins/catalog-backend  ==> Added as a static plugin in RHDH
 plugins/catalog-backend-module-aws:
 plugins/catalog-backend-module-azure:
 plugins/catalog-backend-module-backstage-openapi:
-plugins/catalog-backend-module-bitbucket-cloud:
-plugins/catalog-backend-module-bitbucket-server:
+plugins/catalog-backend-module-bitbucket:
+# plugins/catalog-backend-module-bitbucket-cloud  ==> already embedded in RHDH
+# plugins/catalog-backend-module-bitbucket-server  ==> already embedded in RHDH
 plugins/catalog-backend-module-gcp:
 plugins/catalog-backend-module-gerrit:
-plugins/catalog-backend-module-github-org:
-plugins/catalog-backend-module-github:
-plugins/catalog-backend-module-gitlab:
+# plugins/catalog-backend-module-github  ==> already embedded in RHDH
+# plugins/catalog-backend-module-github-org  ==> already embedded in RHDH
+# plugins/catalog-backend-module-gitlab  ==> already embedded in RHDH
+# plugins/catalog-backend-module-gitlab-org  ==> already embedded in RHDH
 plugins/catalog-backend-module-incremental-ingestion:
-#plugins/catalog-backend-module-ldap: ==> New backend system support missing
-plugins/catalog-backend-module-msgraph:
+# plugins/catalog-backend-module-ldap  ==> already embedded in RHDH
+# plugins/catalog-backend-module-logs  ==> already embedded in RHDH
+# plugins/catalog-backend-module-msgraph  ==> already embedded in RHDH
 plugins/catalog-backend-module-openapi:
 plugins/catalog-backend-module-puppetdb:
 plugins/catalog-backend-module-scaffolder-entity-model:
 plugins/catalog-backend-module-unprocessed:
-#plugins/catalog-graph: ==> Added as a static plugin in RHDH 
-#plugins/catalog-import: ==> Added as a static plugin in RHDH
+# plugins/catalog-graph ==> Added as a static plugin in RHDH
+# plugins/catalog-import ==> Added as a static plugin in RHDH
 plugins/catalog-unprocessed-entities:
 plugins/config-schema:
 plugins/devtools:
@@ -50,37 +54,41 @@ plugins/events-backend-module-aws-sqs:
 plugins/events-backend-module-azure:
 plugins/events-backend-module-bitbucket-cloud:
 plugins/events-backend-module-gerrit:
-#plugins/events-backend-module-github: # ==> the new backend system is not exported as default export (Error: Backend plugin is not valid for dynamic loading: it should either export a BackendFeature or BackendFeatureFactory as default export, or export a const dynamicPluginInstaller: BackendDynamicPluginInstaller field as dynamic loading entrypoint)
-#plugins/events-backend-module-gitlab: # ==> the new backend system is not exported as default export (Error: Backend plugin is not valid for dynamic loading: it should either export a BackendFeature or BackendFeatureFactory as default export, or export a const dynamicPluginInstaller: BackendDynamicPluginInstaller field as dynamic loading entrypoint)
+# plugins/events-backend-module-github ==> Added as a static plugin in RHDH
+# plugins/events-backend-module-gitlab ==> Added as a static plugin in RHDH
 plugins/example-todo-list:
 plugins/example-todo-list-backend:
 plugins/home:
-plugins/kubernetes:
-plugins/kubernetes-backend:
+# plugins/kubernetes  ==> already embedded in RHDH
+# plugins/kubernetes-backend  ==> already embedded in RHDH
+plugins/kubernetes-cluster:
 plugins/notifications:
-plugins/notifications-backend: --embed-package @backstage/plugin-signals-node
+plugins/notifications-backend:
+plugins/notifications-backend-module-email: --embed-package @backstage/plugin-notifications-node --embed-package @backstage/plugin-signals-node
 plugins/org:
-#plugins/permission-backend: ==> Added as a static plugin in RHDH
-#plugins/permission-backend-module-policy-allow-all: ==> Not meaningful for RHDH
-plugins/proxy-backend:
-#plugins/scaffolder: ==> Added as a static plugin in RHDH
-#plugins/scaffolder-backend: ==> Added as a static plugin in RHDH
-plugins/scaffolder-backend-module-azure:
+# plugins/permission-backend ==> Added as a static plugin in RHDH
+# plugins/permission-backend-module-policy-allow-all ==> Added as a static plugin in RHDH
+# plugins/proxy-backend  ==> Added as a static plugin in RHDH
+# plugins/scaffolder  ==> Added as a static plugin in RHDH
+# plugins/scaffolder-backend  ==> Added as a static plugin in RHDH
+# plugins/scaffolder-backend-module-azure  ==> already embedded in RHDH
 plugins/scaffolder-backend-module-bitbucket:
-plugins/scaffolder-backend-module-bitbucket-cloud:
-plugins/scaffolder-backend-module-bitbucket-server:
+# plugins/scaffolder-backend-module-bitbucket-cloud  ==> already embedded in RHDH
+# plugins/scaffolder-backend-module-bitbucket-server  ==> already embedded in RHDH
 plugins/scaffolder-backend-module-confluence-to-markdown:
 plugins/scaffolder-backend-module-cookiecutter:
-plugins/scaffolder-backend-module-gerrit:
+plugins/scaffolder-backend-module-gcp:
+# plugins/scaffolder-backend-module-gerrit  ==> already embedded in RHDH
 plugins/scaffolder-backend-module-gitea:
-plugins/scaffolder-backend-module-github:
-plugins/scaffolder-backend-module-gitlab:
+# plugins/scaffolder-backend-module-github  ==> already embedded in RHDH
+# plugins/scaffolder-backend-module-gitlab  ==> already embedded in RHDH
+plugins/scaffolder-backend-module-notifications:
 plugins/scaffolder-backend-module-rails:
 plugins/scaffolder-backend-module-sentry:
 plugins/scaffolder-backend-module-yeoman:
-#plugins/search: ==> Added as a static plugin in RHDH
-#plugins/search-backend: ==> Added as a static plugin in RHDH
-plugins/search-backend-module-catalog:
+# plugins/search  ==> Added as a static plugin in RHDH
+# plugins/search-backend  ==> Added as a static plugin in RHDH
+# plugins/search-backend-module-catalog  ==> Added as a static plugin in RHDH
 plugins/search-backend-module-elasticsearch:
 plugins/search-backend-module-explore:
 plugins/search-backend-module-pg:
@@ -88,8 +96,8 @@ plugins/search-backend-module-stack-overflow-collator:
 plugins/search-backend-module-techdocs:
 plugins/signals:
 plugins/signals-backend:
-plugins/techdocs:
-#plugins/techdocs-backend: ==> Error: Dynamic plugins do not support native plugins. the following native modules have been transitively detected: - cpu-features
+# plugins/techdocs  ==> already embedded in RHDH
+# plugins/techdocs-backend  ==> already embedded in RHDH
 plugins/techdocs-module-addons-contrib:
 plugins/user-settings:
 plugins/user-settings-backend:
