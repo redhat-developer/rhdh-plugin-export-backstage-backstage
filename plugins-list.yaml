@@ -26,7 +26,6 @@ plugins/auth-backend-module-vmware-cloud-provider:
 plugins/catalog-backend-module-aws:
 plugins/catalog-backend-module-azure:
 plugins/catalog-backend-module-backstage-openapi:
-plugins/catalog-backend-module-bitbucket:
 # plugins/catalog-backend-module-bitbucket-cloud  ==> already embedded in RHDH
 # plugins/catalog-backend-module-bitbucket-server  ==> already embedded in RHDH
 plugins/catalog-backend-module-gcp:
