@@ -1,6 +1,6 @@
-plugins/api-docs:
+# plugins/api-docs  ==> Added as a static plugin in RHDH
 plugins/api-docs-module-protoc-gen-doc:
-plugins/app-backend:
+# plugins/app-backend  ==> Added as a static plugin in RHDH
 plugins/app-visualizer:
 # plugins/auth-backend  ==> Added as a static plugin in RHDH
 plugins/auth-backend-module-atlassian-provider:
