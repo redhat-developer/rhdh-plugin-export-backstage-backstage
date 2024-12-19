@@ -86,3 +86,7 @@ jobs:
 
     permissions:
       contents: write
+      attestations: write
+      packages: write
+      id-token: write
+
